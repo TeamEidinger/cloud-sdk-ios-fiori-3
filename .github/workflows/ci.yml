@@ -22,12 +22,12 @@ jobs:
     - uses: actions/checkout@v2
     - name: Build and Test
       run: set -o pipefail && xcodebuild -scheme FioriSwiftUI-Package -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 11' clean build test
-    - uses: actions/upload-artifact@v3
     - name: try zip the test result folder
       if: ${{ always() }}
       run: |
-        zip -r testResult.zip ~/Library/Developer/Xcode/DerivedData/cloud-sdk-ios-fiori-*/Logs/Test 
-    - name: "Upload Test Logs"
+        zip -r testResult.zip ~/Library/Developer/Xcode/DerivedData/cloud-sdk-ios-fiori-*/Logs/Test
+    - uses: actions/upload-artifact@v3
+      name: "Upload Test Logs"
       if: ${{ always() }}
       with:
         name: test-logs
